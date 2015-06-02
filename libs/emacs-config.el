@@ -172,5 +172,23 @@
     (goto-char current-position)    
     (message "Sentence has been copied")))
 
+;; ===========================================================================
+;;ido-mode
+;; ===========================================================================
+(ido-mode 1)
+;; Display ido results vertically, rather than horizontally
+(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
+(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
+(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
+;; (define-key ido-mode-map (kbd "C-n") 'ido-next-match)
 
-(provide 'emacs-redef)
+(add-hook 'ido-setup-hook 'ido-my-keys)
+;;
+(defun ido-my-keys ()
+  "Add my keybindings for ido."
+  ;; (define-key ido-completion-map " " 'ido-next-match)
+  (define-key ido-completion-map "\C-n" 'ido-next-match)
+  (define-key ido-completion-map "\C-p" 'ido-prev-match))
+
+
+(provide 'emacs-config)
