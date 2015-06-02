@@ -3,7 +3,7 @@
 ;; Copyright © 2011-2015 Frank XU
 ;;
 ;; Author: Frank Xu <franky.xhl#gmail.com>
-;; URL: 
+;; URL:
 ;; Version: 1.0.0
 ;; Keywords: convenience
 
@@ -46,10 +46,10 @@
 
 
 (defun require-package (PACKAGE &optional MIN-VERSION)
-	"If package exsit then load package,else install it"
-	(if (package-installed-p PACKAGE)
-			(require PACKAGE)
-	  (package-install PACKAGE)))
+  "If package exsit then load package,else install it"
+  (if (package-installed-p PACKAGE)
+      (require PACKAGE)
+    (package-install PACKAGE)))
 
 (defun ensure-package-installed (&rest packages)
   "Assure every package is installed, ask for installation if it’s not.
@@ -71,14 +71,13 @@ Return a list of installed packages or nil for every skipped package."
     (package-refresh-contents))
 
 (ensure-package-installed 'paredit
-			  'color-theme
-			  'parenface
-			  'fill-column-indicator
-			  'highlight-parentheses
-			  'cider)
+                          'color-theme
+                          'parenface
+                          'fill-column-indicator
+                          'highlight-parentheses
+                          'ace-jump-mode
+                          'cider)
 ;; activate installed packages
 (package-initialize)
 
-
-(provide 'emacs-package-settings)
-;;; prelude-css.el ends here
+(provide 'emacs-package-settings) ;;; emacs-package-settings.el ends here
