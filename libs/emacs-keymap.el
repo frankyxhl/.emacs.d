@@ -30,12 +30,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-set-key (kbd "C-c o e") 'open-emacs)
 (global-set-key (kbd "C-c o k") 'open-keymap)
-(global-set-key (kbd "C-c o b") 'open-bashrc)
-(global-set-key (kbd "C-c o c") 'open-chicappa)
-;; (global-set-key [(control .)] 'end-of-defun)
-;; (global-set-key [(meta .)] 'beginning-of-defun)
-(global-set-key [(control \,)] 'copy-line)
-(global-set-key (kbd "M-k") 'copy-line)
+(global-set-key (kbd "C-c o z") 'open-zshrc)
+(global-set-key (kbd "C-c o c") 'open-config)
+
+
+(global-set-key [(control \,)] 'duplicate-line)
+(global-set-key (kbd "M-k") 'duplicate-line)
 ;; (global-set-key (kbd "C-M-k") 'copy-sentence)
 (global-set-key (kbd "C-=") 'increase-font-size)
 (global-set-key (kbd "C--") 'decrease-font-size)
