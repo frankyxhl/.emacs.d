@@ -45,7 +45,7 @@
         (set-buffer-modified-p buffer-modified)
         ;; Provide the options in the order in which they are normally generated.
         (delete he-search-string (reverse he-tried-table))))
-     
+
     (defmacro my-ido-hippie-expand-with (hippie-expand-function)
       "Generate an interactively-callable function that offers ido-based completion
     using the specified hippie-expand function."
@@ -58,12 +58,12 @@
           (if selection
               (he-substitute-string selection t)
             (message "No expansion found")))))
-     
+
     (defun my-ido-hippie-expand ()
       "Offer ido-based completion for the word at point."
       (interactive)
       (my-ido-hippie-expand-with 'hippie-expand))
-     
+
     (global-set-key (kbd "M-/") 'my-ido-hippie-expand)
 
 ;; for desktop
@@ -80,36 +80,36 @@
 
 ;; setup python mode
 ;; from here: https://groups.google.com/group/comp.lang.python/msg/956f1c2d37f93995?hl=en&pli=1
-;; (setq auto-mode-alist ; trigger python mode automatically 
-      ;; (cons '("\\.py$" . python-mode) auto-mode-alist)) 
-;; (setq interpreter-mode-alist 
-      ;; (cons '("python" . python-mode) 
-            ;; interpreter-mode-alist)) 
-;; (autoload 'python-mode "python-mode" "Python editing mode." t) 
-; add my customization 
-;; (add-hook 'python-mode-hook 'my-python-hook) 
-; this gets called by outline to deteremine the level. Just use the length of the whitespace 
-;; (defun py-outline-level () 
-  ;; (let (buffer-invisibility-spec) 
-    ;; (save-excursion 
-      ;; (skip-chars-forward "\t ") 
-      ;; (current-column)))) 
-; this get called after python mode is enabled 
-;; (defun my-python-hook () 
-  ; outline uses this regexp to find headers. I match lines with no indent and indented "class" 
-  ; and "def" lines. 
-  ;; (setq outline-regexp "[^ \t]\\|[ \t]*\\(def\\|class\\) ") 
-  ; enable our level computation 
-  ;; (setq outline-level 'py-outline-level) 
-  ; do not use their \C-c@ prefix, too hard to type. Note this overides some python mode bindings 
-  ;; (setq outline-minor-mode-prefix "\C-m") 
-  ; turn on outline mode 
-  ;; (outline-minor-mode t) 
-  ; initially hide all but the headers 
-  ;; (hide-body) 
-  ; make paren matches visible 
-  ;; (show-paren-mode 1) 
-;; ) 
+;; (setq auto-mode-alist ; trigger python mode automatically
+      ;; (cons '("\\.py$" . python-mode) auto-mode-alist))
+;; (setq interpreter-mode-alist
+      ;; (cons '("python" . python-mode)
+            ;; interpreter-mode-alist))
+;; (autoload 'python-mode "python-mode" "Python editing mode." t)
+; add my customization
+;; (add-hook 'python-mode-hook 'my-python-hook)
+; this gets called by outline to deteremine the level. Just use the length of the whitespace
+;; (defun py-outline-level ()
+  ;; (let (buffer-invisibility-spec)
+    ;; (save-excursion
+      ;; (skip-chars-forward "\t ")
+      ;; (current-column))))
+; this get called after python mode is enabled
+;; (defun my-python-hook ()
+  ; outline uses this regexp to find headers. I match lines with no indent and indented "class"
+  ; and "def" lines.
+  ;; (setq outline-regexp "[^ \t]\\|[ \t]*\\(def\\|class\\) ")
+  ; enable our level computation
+  ;; (setq outline-level 'py-outline-level)
+  ; do not use their \C-c@ prefix, too hard to type. Note this overides some python mode bindings
+  ;; (setq outline-minor-mode-prefix "\C-m")
+  ; turn on outline mode
+  ;; (outline-minor-mode t)
+  ; initially hide all but the headers
+  ;; (hide-body)
+  ; make paren matches visible
+  ;; (show-paren-mode 1)
+;; )
 
 ;; for python
 ;; (defun run-python-cmd ()
@@ -124,7 +124,7 @@
 (defun comment-line (&optional arg)
   "comment-line line"
   (interactive "P")
-  (let ((beg (line-beginning-position)) 
+  (let ((beg (line-beginning-position))
 	(end (line-end-position arg)))
     (comment-or-uncomment-region beg end)))
 
@@ -159,9 +159,9 @@
 				  (face-attribute 'default :height)))))
 
 (defun decrease-font-size ()
-  (interactive) 
+  (interactive)
   (set-face-attribute 'default
-		      nil                    
+		      nil
 		      :height
 		      (floor (* 0.9
 				(face-attribute 'default :height)))))
@@ -170,10 +170,10 @@
   "Copy current sentence"
   (interactive "P")
   (let ((current-position (point))
-	(beg (progn (backward-sentence) (point))) 
-	(end (progn (forward-sentence) (point)))) 
+	(beg (progn (backward-sentence) (point)))
+	(end (progn (forward-sentence) (point))))
     (copy-region-as-kill beg end)
-    (goto-char current-position)    
+    (goto-char current-position)
     (message "Sentence has been copied")))
 
 ;; ===========================================================================
@@ -229,5 +229,19 @@
 
   ;; put the point in the lowest line and return
   (next-line arg))
+
+(defun open-file-in-desktop ()
+  "Show current file in desktop (OS's file manager). Copied from Xah Lee:
+  http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html"
+  (interactive)
+  (cond
+   ((string-equal system-type "windows-nt")
+    (w32-shell-execute "explore" (replace-regexp-in-string "/" "\\" default-directory t t)))
+   ((string-equal system-type "darwin") (shell-command "open ."))
+   ((string-equal system-type "gnu/linux")
+    (let ((process-connection-type nil)) (start-process "" nil "xdg-open" "."))
+    ;; (shell-command "xdg-open .") ;; 2013-02-10 this sometimes froze emacs till the folder is closed. ⁖ with nautilus
+    )))
+
 
 (provide 'emacs-config)

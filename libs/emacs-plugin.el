@@ -26,31 +26,31 @@
 ;; load desktop
 ;; all file need to be test and remove
 (remove-desktop-lock '("~/.emacs.desktop.lock"))
-(load "desktop") 
+(load "desktop")
 ;; (desktop-read)
 (desktop-save-mode)
 
 ;; Font Setting
 (if (eq system-type 'darwin)
-  (progn
-    (set-frame-font "Monaco 16")
-		(set-fontset-font
-		 (frame-parameter nil 'font)
-		 'han
-		 (font-spec :family "Hiragino Sans GB" )))
+    (progn
+      (set-frame-font "Monaco 16")
+      (set-fontset-font
+       (frame-parameter nil 'font)
+       'han
+       (font-spec :family "Hiragino Sans GB" )))
   (progn
     (setq display-time-24hr-format t)
     (setq display-time-day-and-date t)
     (setq display-time-interval 1)
     (setq display-time-format "%m月%d日%H点%M分%S秒")
     (display-time-mode 1)
-    (pc-selection-mode);; use shift + [array] to select    
-    (set-fontset-font "fontset-default" 'han '("文泉驿等宽正黑" . "unicode-bmp"))      
+    (pc-selection-mode);; use shift + [array] to select
+    (set-fontset-font "fontset-default" 'han '("文泉驿等宽正黑" . "unicode-bmp"))
     (setq slime-net-coding-system 'utf-8-unix)))
 
-; ===========================================================================
-;yasnippet
-; ===========================================================================
+;; ===========================================================================
+;; yasnippet
+;; ===========================================================================
 (add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
 (yas-global-mode t)
@@ -65,16 +65,16 @@
 (ac-config-default)
 
 (setq-default ac-sources '(
-ac-source-yasnippet
-ac-source-filename
-ac-source-words-in-all-buffer
-ac-source-functions
-ac-source-variables
-ac-source-symbols
-;; ac-source-features
-ac-source-abbrev
-ac-source-words-in-same-mode-buffers
-ac-source-dictionary))
+                           ac-source-yasnippet
+                           ac-source-filename
+                           ac-source-words-in-all-buffer
+                           ac-source-functions
+                           ac-source-variables
+                           ac-source-symbols
+                           ;; ac-source-features
+                           ac-source-abbrev
+                           ac-source-words-in-same-mode-buffers
+                           ac-source-dictionary))
 ;; (require 'auto-complete-cpp)
 ;; (require 'auto-complete-emacs-lisp)
 ;; (require 'auto-complete-python)
@@ -88,8 +88,8 @@ ac-source-dictionary))
 (defun yas/test-at-once ()
   "test new snippet immediately"
   (interactive)
-	(yas-load-snippet-buffer (yas--read-table))
-	(yas-tryout-snippet))
+  (yas-load-snippet-buffer (yas--read-table))
+  (yas-tryout-snippet))
 (define-key snippet-mode-map (kbd "C-M-g") 'yas/test-at-once)
 
 (provide 'emacs-plugin)
